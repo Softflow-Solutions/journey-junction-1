@@ -1,0 +1,35 @@
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 4px 18px;
+  flex-wrap: wrap;
+}
+.info {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 600;
+}
+.btn {
+  padding: 6px 12px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.btn:disabled {
+  background: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+.page {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1f2937;
+  padding: 0 4px;
+}

@@ -1,0 +1,210 @@
+/* Journey Junction — Uber-style registration */
+.page {
+  min-height: 100vh;
+  background: #ffffff;
+  color: var(--black);
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 32px;
+  border-bottom: 1px solid #eee;
+}
+.brand { display: flex; gap: 10px; align-items: center; color: var(--black); text-decoration: none; }
+.brandMark {
+  width: 36px; height: 36px;
+  background: var(--black);
+  color: var(--yellow-400);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+.brand strong { font-size: 17px; letter-spacing: -0.3px; }
+.topLink { color: var(--gray-700); text-decoration: none; font-size: 14px; font-weight: 600; }
+.topLink:hover { color: var(--black); }
+
+.shell {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  min-height: calc(100vh - 73px);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.left {
+  padding: 80px 48px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+.headline {
+  font-size: clamp(40px, 6vw, 60px);
+  line-height: 1.05;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  margin: 0;
+}
+.sub {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--gray-700);
+  max-width: 520px;
+  margin: 0;
+}
+.bullets {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--gray-700);
+  font-size: 15px;
+}
+.bullets li { display: flex; gap: 12px; align-items: center; }
+.bullets span {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--yellow-400);
+  color: var(--black);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.right {
+  padding: 40px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.card {
+  width: 100%;
+  max-width: 460px;
+  background: #ffffff;
+  border: 1px solid #ececec;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #f3f3f5;
+  border-radius: 999px;
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+.tab, .tabActive {
+  border: none;
+  padding: 12px 8px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  background: transparent;
+  color: var(--gray-700);
+  transition: all 0.15s ease;
+}
+.tabActive {
+  background: var(--black);
+  color: var(--white);
+}
+
+.roleHint {
+  margin: 4px 4px 16px;
+  color: var(--gray-700);
+  font-size: 13px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.label {
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 10px;
+  color: var(--black);
+}
+.input {
+  border: 2px solid #e6e6e6;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s ease;
+  background: #fff;
+  width: 100%;
+}
+.input:focus { border-color: var(--black); }
+
+.row2 {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 10px;
+}
+
+.error {
+  background: #fff0f0;
+  color: #b00020;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.submit {
+  margin-top: 20px;
+  background: var(--yellow-400);
+  color: var(--black);
+  border: none;
+  padding: 16px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.submit:hover:not(:disabled) { transform: scale(1.01); background: #f5be0e; }
+.submit:disabled { background: #fde68a; cursor: not-allowed; }
+
+.terms {
+  margin-top: 18px;
+  font-size: 11px;
+  color: var(--gray-500);
+  text-align: center;
+  line-height: 1.5;
+}
+.terms a { color: var(--gray-700); }
+
+.bottomCta {
+  font-size: 14px;
+  color: var(--gray-700);
+  text-align: center;
+}
+.bottomCta a { color: var(--black); font-weight: 700; text-decoration: none; }
+
+@media (max-width: 900px) {
+  .shell { grid-template-columns: 1fr; }
+  .left { padding: 32px 20px 16px; }
+  .right { padding: 16px; }
+}
+@media (max-width: 480px) {
+  .topBar { padding: 14px 16px; flex-direction: column; gap: 8px; align-items: flex-start; }
+  .left { padding: 24px 16px 8px; }
+  .headline { font-size: 32px; }
+  .card { padding: 20px; }
+  .tab, .tabActive { font-size: 11px; padding: 10px 6px; }
+}

@@ -1,0 +1,980 @@
+{
+  "users": [
+    {
+      "id": "d781374c-3fde-461a-919e-f71ca9f8e86a",
+      "email": "admin@journeyjunction.com",
+      "password_hash": "$2a$08$rEyyWbsT7sT7vDn1o6JfW.nlFH7R/Iy/boWOelUg7pO2d3d1Y.2a6",
+      "full_name": "Super Admin",
+      "role": "admin",
+      "kyc_status": "approved",
+      "created_at": "2026-08-22T11:20:19.459Z"
+    },
+    {
+      "id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "email": "aman@example.com",
+      "password_hash": "$2a$08$/Nbr3hpXIE6NeMZsVeidpOlR/0fDy1siLchTI7uzgP3lN.2H32/4y",
+      "full_name": "Aman Verma",
+      "phone": "+91 98765 43210",
+      "role": "user",
+      "kyc_status": "pending",
+      "driving_license_url": "data:image/png;base64,AAAA",
+      "id_document_url": "data:image/png;base64,CCCC",
+      "id_document_type": "Aadhaar",
+      "created_at": "2026-08-22T11:20:19.459Z",
+      "driving_license_front_url": "data:image/png;base64,AAAA",
+      "driving_license_back_url": "data:image/png;base64,BBBB"
+    },
+    {
+      "id": "85f8440f-6528-4a0e-9f35-2b41a344cb05",
+      "email": "rohit@example.com",
+      "password_hash": "$2a$08$/Nbr3hpXIE6NeMZsVeidpOlR/0fDy1siLchTI7uzgP3lN.2H32/4y",
+      "full_name": "Rohit Sharma",
+      "phone": "+91 99887 76655",
+      "role": "user",
+      "kyc_status": "pending",
+      "driving_license_url": "https://example.com/rohit-dl.jpg",
+      "id_document_url": "https://example.com/rohit-aadhaar.jpg",
+      "id_document_type": "Aadhaar",
+      "created_at": "2026-08-22T11:20:19.459Z"
+    },
+    {
+      "id": "df0426b8-8bf5-4a42-a2a9-fc90b007084f",
+      "email": "newbie@example.com",
+      "password_hash": "$2a$08$i/mzMI0TET3pySzJlDvwSucDib1tlmrgrt438.cZq0N2LEsHTd8oy",
+      "full_name": "Test Newbie",
+      "phone": "+91-9999999999",
+      "role": "user",
+      "kyc_status": "approved",
+      "created_at": "2026-08-23T07:12:03.289Z",
+      "driving_license_url": "https://docs.example.com/dl.pdf",
+      "id_document_url": "https://docs.example.com/aadhaar.pdf",
+      "id_document_type": "aadhaar"
+    }
+  ],
+  "merchants": [
+    {
+      "id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "email": "fleet@approved.com",
+      "password_hash": "$2a$08$/Nbr3hpXIE6NeMZsVeidpOlR/0fDy1siLchTI7uzgP3lN.2H32/4y",
+      "business_name": "Approved Fleet Co",
+      "owner_name": "Raj Rao",
+      "state": "MH",
+      "city": "Mumbai",
+      "address": "Andheri East",
+      "kyc_status": "approved",
+      "business_doc_url": "https://example.com/gst.pdf",
+      "identity_doc_url": "https://example.com/pan.pdf",
+      "is_approved": true,
+      "created_at": "2026-08-22T11:20:19.459Z"
+    },
+    {
+      "id": "f491d4ca-7f0a-431a-aac9-68ae22054230",
+      "email": "lux@rides.com",
+      "password_hash": "$2a$08$/Nbr3hpXIE6NeMZsVeidpOlR/0fDy1siLchTI7uzgP3lN.2H32/4y",
+      "business_name": "Lux Rides",
+      "owner_name": "Priya Mehta",
+      "state": "DL",
+      "city": "Delhi",
+      "kyc_status": "approved",
+      "is_approved": true,
+      "created_at": "2026-08-22T11:20:19.459Z"
+    },
+    {
+      "id": "536f423f-30d2-4abe-a585-d7cb7e9d06a9",
+      "email": "citymotors@example.com",
+      "password_hash": "$2a$08$/Nbr3hpXIE6NeMZsVeidpOlR/0fDy1siLchTI7uzgP3lN.2H32/4y",
+      "business_name": "CityMotors Pvt Ltd",
+      "owner_name": "Vikram Joshi",
+      "state": "MH",
+      "city": "Pune",
+      "kyc_status": "pending",
+      "is_approved": false,
+      "created_at": "2026-08-22T11:20:19.459Z"
+    }
+  ],
+  "vehicles": [
+    {
+      "id": "09092c13-6c08-485f-a604-889badb06213",
+      "created_at": "2026-08-22T11:20:19.459Z",
+      "is_available": true,
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "title": "Honda Civic Type R 2019",
+      "category": "4_wheeler",
+      "seating_capacity": 4,
+      "price_per_day": 4350,
+      "description": "Premium sport sedan, fully loaded",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800"
+      ]
+    },
+    {
+      "id": "da446104-666e-4791-bc2e-cafb727d602c",
+      "created_at": "2026-08-22T11:20:19.459Z",
+      "is_available": true,
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "title": "Maruti Swift Dzire",
+      "category": "4_wheeler",
+      "seating_capacity": 5,
+      "price_per_day": 1200,
+      "description": "AC, music system, perfect for city",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800"
+      ]
+    },
+    {
+      "id": "19d51ace-ecdd-428a-b77c-8abd7628f50e",
+      "created_at": "2026-08-22T11:20:19.459Z",
+      "is_available": true,
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "title": "Hyundai Creta",
+      "category": "4_wheeler",
+      "seating_capacity": 5,
+      "price_per_day": 1800,
+      "description": "SUV, automatic transmission",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800"
+      ]
+    },
+    {
+      "id": "652e149c-dd0b-4c67-86da-f37d61f94b7c",
+      "created_at": "2026-08-22T11:20:19.459Z",
+      "is_available": true,
+      "merchant_id": "f491d4ca-7f0a-431a-aac9-68ae22054230",
+      "title": "Ferrari 488 Spider",
+      "category": "4_wheeler",
+      "seating_capacity": 2,
+      "price_per_day": 3980,
+      "description": "Luxury supercar experience",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=800"
+      ]
+    },
+    {
+      "id": "ff7c9db2-47c0-49cc-9478-b92510f83999",
+      "created_at": "2026-08-22T11:20:19.459Z",
+      "is_available": true,
+      "merchant_id": "f491d4ca-7f0a-431a-aac9-68ae22054230",
+      "title": "Mercedes C300",
+      "category": "4_wheeler",
+      "seating_capacity": 5,
+      "price_per_day": 1850,
+      "description": "Executive sedan",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800"
+      ]
+    },
+    {
+      "id": "3a742d5b-722a-40f7-91b4-e14cb1d8eb21",
+      "created_at": "2026-08-22T11:20:19.459Z",
+      "is_available": true,
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "title": "Royal Enfield Classic",
+      "category": "2_wheeler",
+      "seating_capacity": 2,
+      "price_per_day": 350,
+      "description": "Iconic thumper",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800"
+      ]
+    },
+    {
+      "id": "1d4bb6ed-3be0-42dd-ac3d-1d95a86e9ed8",
+      "created_at": "2026-08-22T11:20:19.459Z",
+      "is_available": true,
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "title": "Honda Activa",
+      "category": "2_wheeler",
+      "seating_capacity": 2,
+      "price_per_day": 250,
+      "description": "Scooter for city commute",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1591025207163-942350e47db2?w=800"
+      ]
+    },
+    {
+      "id": "3169eff5-66b0-471e-befb-ce0bde9c1144",
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "title": "Tata Nexon EV 2025",
+      "category": "4_wheeler",
+      "seating_capacity": 5,
+      "price_per_day": 2500,
+      "description": "EV SUV",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800"
+      ],
+      "is_available": true,
+      "created_at": "2026-08-22T12:14:00.974Z"
+    },
+    {
+      "id": "f9a95d2d-cee8-4687-a5e8-5922723ede99",
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "title": "Yamaha R15 V4",
+      "category": "2_wheeler",
+      "seating_capacity": 2,
+      "price_per_day": 400,
+      "description": "Sport bike",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?w=800"
+      ],
+      "is_available": true,
+      "created_at": "2026-08-22T12:14:01.015Z"
+    },
+    {
+      "id": "d0518af8-9fa8-4795-aa7d-07878d74654e",
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "title": "BMW 7 Series",
+      "category": "4_wheeler",
+      "seating_capacity": 5,
+      "price_per_day": 3500,
+      "description": "Luxury sedan",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=800"
+      ],
+      "is_available": true,
+      "created_at": "2026-08-22T12:14:01.100Z"
+    },
+    {
+      "id": "6523d294-a99b-4047-b3b4-ad7521f54cef",
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "title": "34232323",
+      "category": "4_wheeler",
+      "seating_capacity": 5,
+      "price_per_day": 2312423,
+      "description": "we23e23",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=800"
+      ],
+      "is_available": true,
+      "created_at": "2026-08-23T09:07:20.561Z"
+    },
+    {
+      "id": "28026762-e3cf-4dc1-be8d-43af9b3495fb",
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "title": "qwe",
+      "category": "4_wheeler",
+      "seating_capacity": 5,
+      "price_per_day": 1500,
+      "description": "zxvvd",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=800"
+      ],
+      "is_available": true,
+      "created_at": "2026-08-25T08:59:53.249Z"
+    },
+    {
+      "id": "666731fa-6372-4b6e-af80-6243cadaee8b",
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "title": "bnhg",
+      "category": "4_wheeler",
+      "seating_capacity": 5,
+      "price_per_day": 1500,
+      "description": "cfgfdc",
+      "image_urls": [
+        "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=800"
+      ],
+      "is_available": true,
+      "created_at": "2026-08-25T09:00:07.413Z"
+    }
+  ],
+  "bookings": [
+    {
+      "id": "bf5fc010-e5a1-46df-830d-16c678375eaf",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "vehicle_id": "da446104-666e-4791-bc2e-cafb727d602c",
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "start_date": "2026-08-27",
+      "end_date": "2026-08-29",
+      "total_amount": 3600,
+      "advance_amount": 1800,
+      "balance_amount": 1800,
+      "payment_status": "advance_paid",
+      "booking_status": "completed",
+      "commission_amount": 1080,
+      "merchant_payout": 2520,
+      "created_at": "2026-08-22T11:48:24.849Z",
+      "handed_over_at": "2026-08-25T06:01:10.604Z",
+      "completed_at": "2026-08-25T06:07:49.054Z"
+    },
+    {
+      "id": "9a135824-7e7a-4fae-a419-618f739e456d",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "vehicle_id": "09092c13-6c08-485f-a604-889badb06213",
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "start_date": "2026-09-15",
+      "end_date": "2026-09-17",
+      "total_amount": 13050,
+      "advance_amount": 6525,
+      "balance_amount": 6525,
+      "payment_status": "fully_paid",
+      "booking_status": "confirmed",
+      "commission_amount": 3915,
+      "merchant_payout": 9135,
+      "created_at": "2026-08-22T11:49:58.528Z"
+    },
+    {
+      "id": "ee443951-c1d9-4f38-ae73-6ab176334b55",
+      "user_id": "df0426b8-8bf5-4a42-a2a9-fc90b007084f",
+      "vehicle_id": "652e149c-dd0b-4c67-86da-f37d61f94b7c",
+      "merchant_id": "f491d4ca-7f0a-431a-aac9-68ae22054230",
+      "start_date": "2026-09-20",
+      "end_date": "2026-09-22",
+      "total_amount": 11940,
+      "advance_amount": 5970,
+      "balance_amount": 5970,
+      "payment_status": "fully_paid",
+      "booking_status": "confirmed",
+      "commission_amount": 3582,
+      "merchant_payout": 8358,
+      "created_at": "2026-08-23T07:14:50.750Z"
+    },
+    {
+      "id": "a7628491-eddc-4383-bb01-5a98f9ffb9d6",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "vehicle_id": "652e149c-dd0b-4c67-86da-f37d61f94b7c",
+      "merchant_id": "f491d4ca-7f0a-431a-aac9-68ae22054230",
+      "start_date": "2026-08-25",
+      "end_date": "2026-08-27",
+      "total_amount": 11940,
+      "advance_amount": 5970,
+      "balance_amount": 5970,
+      "payment_status": "advance_paid",
+      "booking_status": "confirmed",
+      "commission_amount": 3582,
+      "merchant_payout": 8358,
+      "created_at": "2026-08-23T09:01:32.024Z"
+    },
+    {
+      "id": "2cf4ed5d-fd41-404b-a9f8-98b985bcacfe",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "vehicle_id": "09092c13-6c08-485f-a604-889badb06213",
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "start_date": "2026-09-10",
+      "end_date": "2026-09-12",
+      "total_amount": 13050,
+      "advance_amount": 6525,
+      "balance_amount": 6525,
+      "payment_status": "pending_advance",
+      "booking_status": "confirmed",
+      "commission_amount": 3915,
+      "merchant_payout": 9135,
+      "created_at": "2026-08-24T07:14:48.336Z"
+    },
+    {
+      "id": "76329d33-d1ea-436f-9819-eb26cc7bc642",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "vehicle_id": "09092c13-6c08-485f-a604-889badb06213",
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "start_date": "2026-10-01",
+      "end_date": "2026-10-04",
+      "total_amount": 17400,
+      "advance_amount": 8700,
+      "balance_amount": 8700,
+      "payment_status": "pending_advance",
+      "booking_status": "confirmed",
+      "commission_amount": 5220,
+      "merchant_payout": 12180,
+      "created_at": "2026-08-24T07:17:19.955Z"
+    },
+    {
+      "id": "c4dde99a-f04d-4369-8c45-6065b9132bcd",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "vehicle_id": "ff7c9db2-47c0-49cc-9478-b92510f83999",
+      "merchant_id": "f491d4ca-7f0a-431a-aac9-68ae22054230",
+      "start_date": "2026-08-28",
+      "end_date": "2026-09-01",
+      "total_amount": 9250,
+      "advance_amount": 4625,
+      "balance_amount": 4625,
+      "payment_status": "advance_paid",
+      "booking_status": "confirmed",
+      "commission_amount": 2775,
+      "merchant_payout": 6475,
+      "created_at": "2026-08-25T03:25:54.448Z"
+    },
+    {
+      "id": "e91063dc-7470-471d-82e6-4ef5f810a9f3",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "vehicle_id": "19d51ace-ecdd-428a-b77c-8abd7628f50e",
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "start_date": "2026-08-27",
+      "end_date": "2026-09-01",
+      "total_amount": 10800,
+      "advance_amount": 5400,
+      "balance_amount": 5400,
+      "payment_status": "advance_paid",
+      "booking_status": "confirmed",
+      "commission_amount": 3240,
+      "merchant_payout": 7560,
+      "created_at": "2026-08-25T04:57:48.754Z"
+    },
+    {
+      "id": "7ef6f0ae-5561-4454-bc9b-cf85fb9f2175",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "vehicle_id": "3a742d5b-722a-40f7-91b4-e14cb1d8eb21",
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "start_date": "2026-09-10",
+      "end_date": "2026-09-12",
+      "total_amount": 1050,
+      "advance_amount": 525,
+      "balance_amount": 525,
+      "payment_status": "advance_paid",
+      "booking_status": "completed",
+      "commission_amount": 315,
+      "merchant_payout": 735,
+      "created_at": "2026-08-25T05:56:05.018Z",
+      "handed_over_at": "2026-08-25T05:56:05.214Z",
+      "completed_at": "2026-08-25T06:56:29.460Z"
+    },
+    {
+      "id": "bbdc6f44-013a-492c-aad0-3d92202467e7",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "vehicle_id": "da446104-666e-4791-bc2e-cafb727d602c",
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "start_date": "2026-09-15",
+      "end_date": "2026-09-17",
+      "total_amount": 3600,
+      "advance_amount": 1800,
+      "balance_amount": 1800,
+      "payment_status": "advance_paid",
+      "booking_status": "confirmed",
+      "commission_amount": 1080,
+      "merchant_payout": 2520,
+      "created_at": "2026-08-25T08:03:09.979Z"
+    },
+    {
+      "id": "4fc03857-4684-4b5f-874c-0a8182b3729e",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "vehicle_id": "3a742d5b-722a-40f7-91b4-e14cb1d8eb21",
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "start_date": "2026-08-22",
+      "end_date": "2026-09-05",
+      "total_amount": 5250,
+      "advance_amount": 2625,
+      "balance_amount": 2625,
+      "payment_status": "advance_paid",
+      "booking_status": "confirmed",
+      "commission_amount": 1575,
+      "merchant_payout": 3675,
+      "created_at": "2026-08-25T08:23:44.685Z"
+    },
+    {
+      "id": "b375d34c-0860-4824-b8b1-a692fef73b04",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "vehicle_id": "1d4bb6ed-3be0-42dd-ac3d-1d95a86e9ed8",
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "start_date": "2026-10-01",
+      "end_date": "2026-10-03",
+      "total_amount": 750,
+      "advance_amount": 375,
+      "balance_amount": 375,
+      "payment_status": "advance_paid",
+      "booking_status": "completed",
+      "commission_amount": 225,
+      "merchant_payout": 525,
+      "created_at": "2026-08-25T08:31:43.600Z",
+      "handed_over_at": "2026-08-25T09:09:09.632Z",
+      "completed_at": "2026-08-25T09:09:29.126Z"
+    },
+    {
+      "id": "8480b62b-bfdd-4da0-a848-4713ede61257",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "vehicle_id": "3169eff5-66b0-471e-befb-ce0bde9c1144",
+      "merchant_id": "25bda55a-e97d-44e0-9b1d-ad48be96b044",
+      "start_date": "2026-11-01",
+      "end_date": "2026-11-03",
+      "total_amount": 7500,
+      "advance_amount": 3750,
+      "balance_amount": 3750,
+      "payment_status": "advance_paid",
+      "booking_status": "completed",
+      "commission_amount": 2250,
+      "merchant_payout": 5250,
+      "created_at": "2026-08-25T08:38:13.286Z",
+      "handed_over_at": "2026-08-25T15:44:30.095Z",
+      "completed_at": "2026-08-25T15:44:32.852Z"
+    }
+  ],
+  "payments": [
+    {
+      "id": "1b01a90b-93f3-4899-bcbf-169d86488a81",
+      "booking_id": "bf5fc010-e5a1-46df-830d-16c678375eaf",
+      "stage": "advance",
+      "amount": 1800,
+      "upi_reference": "UPI/DEMO/1787399307625",
+      "verified_by_admin": true,
+      "created_at": "2026-08-22T11:48:27.629Z",
+      "verified_at": "2026-08-22T11:49:00.286Z",
+      "verified_by": "d781374c-3fde-461a-919e-f71ca9f8e86a"
+    },
+    {
+      "id": "16c31eb7-91b1-47a7-9cda-303a25530ba7",
+      "booking_id": "9a135824-7e7a-4fae-a419-618f739e456d",
+      "stage": "advance",
+      "amount": 6525,
+      "upi_reference": "UPI/CIVIC/99887766",
+      "verified_by_admin": true,
+      "created_at": "2026-08-22T11:50:34.611Z",
+      "verified_at": "2026-08-22T11:51:21.930Z",
+      "verified_by": "d781374c-3fde-461a-919e-f71ca9f8e86a"
+    },
+    {
+      "id": "7b129314-5ad9-46de-a8ee-35291324f88d",
+      "booking_id": "9a135824-7e7a-4fae-a419-618f739e456d",
+      "stage": "balance",
+      "amount": 6525,
+      "upi_reference": "UPI/CIVIC/BALANCE/1234",
+      "verified_by_admin": true,
+      "created_at": "2026-08-22T11:51:22.034Z",
+      "verified_at": "2026-08-22T11:51:22.092Z",
+      "verified_by": "d781374c-3fde-461a-919e-f71ca9f8e86a"
+    },
+    {
+      "id": "13347799-a64b-4892-a8f6-2d032e324a6a",
+      "booking_id": "ee443951-c1d9-4f38-ae73-6ab176334b55",
+      "stage": "advance",
+      "amount": 5970,
+      "upi_reference": "UPI/FERRARI/9999",
+      "verified_by_admin": true,
+      "created_at": "2026-08-23T07:17:38.238Z",
+      "verified_at": "2026-08-23T07:17:38.340Z",
+      "verified_by": "d781374c-3fde-461a-919e-f71ca9f8e86a"
+    },
+    {
+      "id": "83bd0aac-5059-49f3-9b95-e62868371cca",
+      "booking_id": "ee443951-c1d9-4f38-ae73-6ab176334b55",
+      "stage": "balance",
+      "amount": 5970,
+      "upi_reference": "UPI/FERRARI/BAL/8888",
+      "verified_by_admin": true,
+      "created_at": "2026-08-23T07:17:38.355Z",
+      "verified_at": "2026-08-23T07:17:38.411Z",
+      "verified_by": "d781374c-3fde-461a-919e-f71ca9f8e86a"
+    },
+    {
+      "id": "d459d377-356e-4b46-82a4-2ea3a3f12995",
+      "booking_id": "a7628491-eddc-4383-bb01-5a98f9ffb9d6",
+      "stage": "advance",
+      "amount": 5970,
+      "upi_reference": "UPI/DEMO/1787475694372",
+      "verified_by_admin": true,
+      "created_at": "2026-08-23T09:01:34.375Z",
+      "verified_at": "2026-08-23T09:06:19.992Z",
+      "verified_by": "d781374c-3fde-461a-919e-f71ca9f8e86a"
+    },
+    {
+      "id": "cd97612b-5415-45f1-8cab-6db8903b3d8e",
+      "booking_id": "c4dde99a-f04d-4369-8c45-6065b9132bcd",
+      "stage": "advance",
+      "amount": 4625,
+      "upi_reference": "UPI/DEMO/1787628356478",
+      "verified_by_admin": true,
+      "created_at": "2026-08-25T03:25:56.482Z",
+      "verified_at": "2026-08-25T03:27:35.164Z",
+      "verified_by": "d781374c-3fde-461a-919e-f71ca9f8e86a"
+    },
+    {
+      "id": "0481b6d6-69b5-4b0c-8cb7-5e9eeaefd355",
+      "booking_id": "e91063dc-7470-471d-82e6-4ef5f810a9f3",
+      "stage": "advance",
+      "amount": 5400,
+      "upi_reference": "UPI/DEMO/1787633871297",
+      "verified_by_admin": true,
+      "created_at": "2026-08-25T04:57:51.301Z",
+      "verified_at": "2026-08-25T04:58:18.824Z",
+      "verified_by": "d781374c-3fde-461a-919e-f71ca9f8e86a"
+    },
+    {
+      "id": "6444a620-4604-4da4-afd4-1e8bef49217f",
+      "booking_id": "7ef6f0ae-5561-4454-bc9b-cf85fb9f2175",
+      "stage": "advance",
+      "amount": 525,
+      "upi_reference": "UPI/TEST/12345",
+      "verified_by_admin": true,
+      "created_at": "2026-08-25T05:56:05.129Z",
+      "verified_at": "2026-08-25T05:56:05.197Z",
+      "verified_by": "d781374c-3fde-461a-919e-f71ca9f8e86a"
+    },
+    {
+      "id": "abae02f5-ede9-4231-8b62-a62fc7854733",
+      "booking_id": "bbdc6f44-013a-492c-aad0-3d92202467e7",
+      "stage": "advance",
+      "amount": 1800,
+      "upi_reference": "UPI/TEST/1787644989",
+      "verified_by_admin": true,
+      "created_at": "2026-08-25T08:03:09.979Z",
+      "verified_at": "2026-08-25T08:24:58.912Z",
+      "verified_by": "d781374c-3fde-461a-919e-f71ca9f8e86a"
+    },
+    {
+      "id": "24f0119f-8559-42dd-a15b-1de42c103fa5",
+      "booking_id": "4fc03857-4684-4b5f-874c-0a8182b3729e",
+      "stage": "advance",
+      "amount": 2625,
+      "upi_reference": "qwdq3wdwed",
+      "verified_by_admin": true,
+      "created_at": "2026-08-25T08:23:44.685Z",
+      "verified_at": "2026-08-25T08:44:03.945Z",
+      "verified_by": "d781374c-3fde-461a-919e-f71ca9f8e86a"
+    },
+    {
+      "id": "1f34fdf7-7a1a-4d8f-b47e-5596b098cd6a",
+      "booking_id": "b375d34c-0860-4824-b8b1-a692fef73b04",
+      "stage": "advance",
+      "amount": 375,
+      "upi_reference": "UPI/TEST/1787646703",
+      "verified_by_admin": true,
+      "created_at": "2026-08-25T08:31:43.600Z",
+      "verified_at": "2026-08-25T08:31:43.864Z",
+      "verified_by": "d781374c-3fde-461a-919e-f71ca9f8e86a"
+    },
+    {
+      "id": "c270add0-f07e-4dc4-9893-4e31c61d7f19",
+      "booking_id": "8480b62b-bfdd-4da0-a848-4713ede61257",
+      "stage": "advance",
+      "amount": 3750,
+      "upi_reference": "UPI/TEST/1787647093",
+      "verified_by_admin": true,
+      "created_at": "2026-08-25T08:38:13.286Z",
+      "verified_at": "2026-08-25T08:44:04.760Z",
+      "verified_by": "d781374c-3fde-461a-919e-f71ca9f8e86a"
+    }
+  ],
+  "chat_logs": [
+    {
+      "id": "bbd4d152-38b2-4f70-8942-d8dee3b1c0d7",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "9627913c-6582-4a13-8996-6079f68c6e5f",
+      "role": "user",
+      "message": "I need a comfortable SUV for a 3-day family road trip. Which vehicle would you recommend and why?",
+      "created_at": "2026-08-23T12:44:31.288Z"
+    },
+    {
+      "id": "f0bac595-ea8c-4a1c-9522-e0efe5c6d03b",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "9627913c-6582-4a13-8996-6079f68c6e5f",
+      "role": "assistant",
+      "message": "[demo mode — GEMINI_API_KEY not set] You asked: \"I need a comfortable SUV for a 3-day family road trip. Which vehicle would you recommend and why?\". Set GEMINI_API_KEY in .env to enable real AI replies.",
+      "created_at": "2026-08-23T12:44:31.288Z"
+    },
+    {
+      "id": "2d4bd92e-f70f-42c3-ba1b-bc6a6286d67d",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "da07d839-3ede-4bd0-bfb6-902ddbf41361",
+      "role": "user",
+      "message": "I need a comfortable SUV for a 3-day family road trip. Which vehicle would you recommend and why?",
+      "created_at": "2026-08-23T13:33:33.811Z"
+    },
+    {
+      "id": "af467747-2697-43e8-86cb-a1198efd4dc2",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "da07d839-3ede-4bd0-bfb6-902ddbf41361",
+      "role": "assistant",
+      "message": "For a comfortable 3-day family road trip, I highly recommend two great SUV options from our fleet:\n\n1. **Hyundai Creta** (**AED 1,800/day**)\n   * **Why choose it:** It is a spacious, comfortable, and smooth-riding compact SUV. It offers ample legroom and boot space for family luggage, making it a reliable and cost-effective choice for a 3-day trip (Total: AED 5,400).\n\n2. **Tata Nexon EV 2025** (**AED 2,500/day**)\n   * **Why choose it:** If you prefer a modern, quiet, and eco-friendly ride, this electric SUV offers modern tech features, great cabin comfort, and zero fuel costs during your journey (Total: AED 7,500).\n\n---\n\n### Booking & Payment Process:\n* **KYC Requirements:** Quick online verification (Government ID & driving license).\n* **Two-Stage UPI Payment:** Pay a **50% advance** to confirm your booking and the remaining **50% balance** before vehicle pickup.\n\nLet me know which option you'd like to book!",
+      "created_at": "2026-08-23T13:34:03.681Z"
+    },
+    {
+      "id": "0cb11a31-4356-4fa8-b091-1f10d42b556d",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "test-1787495848",
+      "role": "user",
+      "message": "SUV for 3-day family trip",
+      "created_at": "2026-08-23T14:37:28.835Z"
+    },
+    {
+      "id": "63849399-b154-43d4-b724-c0a845b12683",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "test-1787495848",
+      "role": "assistant",
+      "message": "Hello! We have two great SUV options perfect for a 3-day family trip:\n\n1. **Hyundai Creta** \n   * **Daily Rate:** AED 1,800/day\n   * **Total for 3 days:** AED 5,400\n\n2. **Tata Nexon EV 2025** (Electric SUV)\n   * **Daily Rate:** AED 2,500/day\n   * **Total for 3 days:** AED 7,500\n\n---\n\n### **Booking & Payment Process:**\n* **Two-Stage UPI Payment:** Secure your booking with a **50% advance payment via UPI**, and pay the remaining **50% balance** upon vehicle pickup.\n  * *For Hyundai Creta:* AED 2,700 advance\n  * *For Tata Nexon EV:* AED 3,750 advance\n* **KYC Requirements:** You'll just need to submit a valid Driving License and ID proof before pickup.\n\nLet us know which SUV you'd like to reserve, and we'll get your booking started right away!",
+      "created_at": "2026-08-23T14:37:35.859Z"
+    },
+    {
+      "id": "ca83bd0e-08bb-4d6b-8397-af8c10cbef5f",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "65e651b4-bbe3-4d42-83c7-9bdb099681fb",
+      "role": "user",
+      "message": "hi",
+      "created_at": "2026-08-23T14:39:16.410Z"
+    },
+    {
+      "id": "2a60b9cd-b8bf-4194-b88a-27556544dcf9",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "65e651b4-bbe3-4d42-83c7-9bdb099681fb",
+      "role": "assistant",
+      "message": "Hello! Welcome to Journey Junction, your vehicle rental marketplace. \n\nI can help you check vehicle availability, explain our booking and KYC process, provide pricing details, or guide you through our two-stage UPI payment policy (50% advance to book, 50% balance at pickup). \n\nAre you looking to rent a 2-wheeler (like a Royal Enfield or Honda Activa) or a 4-wheeler (like a Hyundai Creta, Mercedes C300, or Ferrari 488 Spider) today? How can I assist you?",
+      "created_at": "2026-08-23T14:39:20.350Z"
+    },
+    {
+      "id": "05601dd4-17c0-4c30-adef-9da46df55ceb",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "hist-test-1787496067",
+      "role": "user",
+      "message": "Hi, I need an SUV",
+      "created_at": "2026-08-23T14:41:07.911Z"
+    },
+    {
+      "id": "0b002956-198d-4401-b5f2-4f049fd5302f",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "hist-test-1787496067",
+      "role": "assistant",
+      "message": "Hello! Welcome to Journey Junction. We have a couple of great SUV options available for you:\n\n* **Hyundai Creta**: AED 1,800/day  \n* **Tata Nexon EV 2025** (Electric): AED 2,500/day  \n\n**Booking Info:**\n* **KYC Requirements:** Valid ID and driving license verification.\n* **Payment:** We use a convenient two-stage UPI payment system — pay a **50% advance** to confirm your booking and the remaining **50% balance** upon delivery/pickup.\n\nWould you like to book one of these SUVs or need more details?",
+      "created_at": "2026-08-23T14:41:14.972Z"
+    },
+    {
+      "id": "2ab78274-2faf-4bd5-89c5-89a14719f6f7",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "hist-test-1787496067",
+      "role": "user",
+      "message": "which one for 3 days",
+      "created_at": "2026-08-23T14:41:15.001Z"
+    },
+    {
+      "id": "857bbfaa-326c-40b4-9a40-db7d1873a2ee",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "hist-test-1787496067",
+      "role": "assistant",
+      "message": "Here are the total prices and payment breakdowns for a **3-day rental**:\n\n1. **Hyundai Creta**\n   * **Total Cost:** AED 5,400 *(AED 1,800/day)*\n   * **50% Advance (UPI):** AED 2,700\n   * **50% Balance:** AED 2,700\n\n2. **Tata Nexon EV 2025**\n   * **Total Cost:** AED 7,500 *(AED 2,500/day)*\n   * **50% Advance (UPI):** AED 3,750\n   * **50% Balance:** AED 3,750\n\nWhich one would you like to reserve?",
+      "created_at": "2026-08-23T14:41:35.878Z"
+    },
+    {
+      "id": "d5b8f803-3153-4890-900e-f54b864eb870",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "65e651b4-bbe3-4d42-83c7-9bdb099681fb",
+      "role": "user",
+      "message": "hi",
+      "created_at": "2026-08-23T14:44:31.848Z"
+    },
+    {
+      "id": "74d01973-3ab9-4921-b0c2-3d2eec31b628",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "65e651b4-bbe3-4d42-83c7-9bdb099681fb",
+      "role": "assistant",
+      "message": "Hello again! 😊\n\nHow can I help you today? Let me know if you'd like to check out available vehicles (from two-wheelers like the Honda Activa to luxury cars like the BMW 7 Series), get price details, or learn about our booking and KYC process!",
+      "created_at": "2026-08-23T14:44:46.711Z"
+    },
+    {
+      "id": "7f568a62-2455-41b9-98e4-18555ed51c05",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "65e651b4-bbe3-4d42-83c7-9bdb099681fb",
+      "role": "user",
+      "message": "hi",
+      "created_at": "2026-08-23T16:05:36.794Z"
+    },
+    {
+      "id": "9a783420-f3d4-4d57-8df2-a4640daa76ef",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "65e651b4-bbe3-4d42-83c7-9bdb099681fb",
+      "role": "assistant",
+      "message": "Hi there! 😄 \n\nReady to get on the road? Tell me what you're looking for—whether it's pricing for a specific vehicle (like the Yamaha R15 or Maruti Swift Dzire), details on our 50/50 UPI payment process, or KYC requirements, and I'd be happy to help!",
+      "created_at": "2026-08-23T16:05:52.754Z"
+    },
+    {
+      "id": "f69b2e24-f0c3-4934-b380-dc965542bc1c",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "65e651b4-bbe3-4d42-83c7-9bdb099681fb",
+      "role": "user",
+      "message": "family trip",
+      "created_at": "2026-08-23T16:07:01.411Z"
+    },
+    {
+      "id": "3178e8db-a121-451e-8308-84c09271e882",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "65e651b4-bbe3-4d42-83c7-9bdb099681fb",
+      "role": "assistant",
+      "message": "Planning a family trip? We have some great 4-wheeler options that offer comfort and space for everyone:\n\n* **Maruti Swift Dzire**: AED 1,200/day (Budget-friendly sedan)\n* **Hyundai Creta**: AED 1,800/day (Spacious & comfortable SUV)\n* **Mercedes C300**: AED 1,850/day (Premium sedan)\n* **Tata Nexon EV 2025**: AED 2,500/day (Modern electric SUV)\n* **BMW 7 Series**: AED 3,500/day (Luxury travel experience)\n\nTo lock in your booking, you just need to submit basic KYC documents and pay a **50% advance via UPI** (the remaining 50% is paid at pickup). \n\nWhich vehicle would work best for your trip?",
+      "created_at": "2026-08-23T16:07:10.014Z"
+    },
+    {
+      "id": "0c03beb2-5682-4a11-8ec1-da338da564f1",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "65e651b4-bbe3-4d42-83c7-9bdb099681fb",
+      "role": "user",
+      "message": "thanks",
+      "created_at": "2026-08-23T16:07:35.938Z"
+    },
+    {
+      "id": "59911f73-97b5-4a48-b115-c93cb060c7c6",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "65e651b4-bbe3-4d42-83c7-9bdb099681fb",
+      "role": "assistant",
+      "message": "You're very welcome! 😊 \n\nWhenever you're ready to book or if you have any questions about our KYC requirements or two-stage UPI payment process, feel free to ask. Have a fantastic family trip!",
+      "created_at": "2026-08-23T16:07:41.988Z"
+    },
+    {
+      "id": "d0a555db-3d2b-4746-af26-c0b3b1eedb10",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "fff7a585-93cd-4edc-9652-d8eb7c399f3f",
+      "role": "user",
+      "message": "suggest a bike",
+      "created_at": "2026-08-24T07:59:09.614Z"
+    },
+    {
+      "id": "3f1719fb-a365-4f52-b7d9-409eac863bb1",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "fff7a585-93cd-4edc-9652-d8eb7c399f3f",
+      "role": "assistant",
+      "message": "Here are the 2-wheelers available at Journey Junction:\n\n1. **Honda Activa** – **AED 250/day** (Great for quick, budget-friendly city rides)\n2. **Royal Enfield Classic** – **AED 350/day** (Perfect for a relaxed, classic cruiser experience)\n3. **Yamaha R15 V4** – **AED 400/day** (Ideal if you're looking for a sporty ride)\n\nYou can easily reserve any of these with our **50% advance UPI payment**, paying the remaining 50% balance upon collection (after standard KYC verification). \n\nWhich one suits your trip best?",
+      "created_at": "2026-08-24T07:59:31.314Z"
+    },
+    {
+      "id": "90fcd092-4595-4900-be97-6da581521d52",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "5862f93e-5868-446a-a1c6-4936977cf47b",
+      "role": "user",
+      "message": "suggest a bike",
+      "created_at": "2026-08-24T08:01:52.766Z"
+    },
+    {
+      "id": "211f0d73-85b1-4ad3-9918-a3f01c6f66eb",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "5862f93e-5868-446a-a1c6-4936977cf47b",
+      "role": "assistant",
+      "message": "Here are the bike (2-wheeler) options available for rent at Journey Junction:\n\n1. **Honda Activa** – AED 250/day (Ideal for convenient city commuting)\n2. **Royal Enfield Classic** – AED 350/day (Great for a classic cruiser experience)\n3. **Yamaha R15 V4** – AED 400/day (Perfect for a sporty, performance ride)\n\nTo book, you only need to pay a **50% advance via UPI** to confirm, with the remaining **50% balance** paid upon vehicle pickup (standard KYC verification required). \n\nWhich one would you like to reserve?",
+      "created_at": "2026-08-24T08:02:20.656Z"
+    },
+    {
+      "id": "755a4f2a-cc39-4ffa-a0cb-edb2ccf603e5",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "659898b7-b491-4ae0-8ee5-802d78ab2566",
+      "role": "user",
+      "message": "hi",
+      "created_at": "2026-08-25T05:56:18.293Z"
+    },
+    {
+      "id": "8ed78489-f310-4772-b23c-a2fd55f4e0c8",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "659898b7-b491-4ae0-8ee5-802d78ab2566",
+      "role": "assistant",
+      "message": "Hello! Welcome to Journey Junction. How can I help you today? \n\nI can assist you with:\n* **Vehicle availability & pricing** (e.g., Honda Activa, Yamaha R15 V4, Tata Nexon EV, BMW 7 Series)\n* **Booking process & KYC requirements**\n* **Two-stage UPI payments** (50% advance to book, 50% balance at pick-up)\n* **Platform policies**\n\nWhat are you looking for today?",
+      "created_at": "2026-08-25T05:56:25.687Z"
+    },
+    {
+      "id": "fcdaf10a-589c-438d-87aa-f972b673c1d2",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "dc771e0c-7893-4dbb-98a3-f300029b5ee9",
+      "role": "user",
+      "message": "family trip",
+      "created_at": "2026-08-25T06:58:14.690Z"
+    },
+    {
+      "id": "a72a5d31-e3bb-44c9-ba54-be2dd2416e57",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "dc771e0c-7893-4dbb-98a3-f300029b5ee9",
+      "role": "assistant",
+      "message": "Hello! Planning a family trip sounds wonderful! We have great 4-wheeler options to make your journey comfortable:\n\n* **Maruti Swift Dzire** – ₹1,200/day (Comfortable & budget-friendly sedan)\n* **Tata Nexon EV 2025** – ₹2,500/day (Spacious & eco-friendly SUV)\n* **BMW 7 Series** – ₹3,500/day (Luxury & premium comfort)\n\n**How to book:**\nYou can reserve any car by paying a **50% advance via UPI**, completing a quick KYC verification, and paying the remaining 50% balance upon pickup.\n\nWhich vehicle would you like to book for your family?",
+      "created_at": "2026-08-25T06:58:21.020Z"
+    },
+    {
+      "id": "0449d92c-afcd-4b22-bcee-c797d41ad87a",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "d1717c16-60ee-42c0-91ca-e4a186278154",
+      "role": "user",
+      "message": "hi",
+      "created_at": "2026-08-25T11:40:02.750Z"
+    },
+    {
+      "id": "feac47f6-5a07-43d8-a8ad-2302c5179323",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "d1717c16-60ee-42c0-91ca-e4a186278154",
+      "role": "assistant",
+      "message": "[AI temporarily unavailable — quota reached] You asked: \"hi\". Try again later or contact support@journeyjunction.com.",
+      "created_at": "2026-08-25T11:40:06.999Z"
+    },
+    {
+      "id": "1bd352f3-65cc-4f98-9ebf-d7cb0914ded3",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "65e651b4-bbe3-4d42-83c7-9bdb099681fb",
+      "role": "user",
+      "message": "family trip",
+      "created_at": "2026-08-25T11:42:13.093Z"
+    },
+    {
+      "id": "a6954c23-d3d2-489c-af3a-6073e3583345",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "65e651b4-bbe3-4d42-83c7-9bdb099681fb",
+      "role": "assistant",
+      "message": "[AI temporarily unavailable — quota reached] You asked: \"family trip\". Try again later or contact support@journeyjunction.com.",
+      "created_at": "2026-08-25T11:42:13.093Z"
+    },
+    {
+      "id": "b70a6283-e88b-4867-9189-e6a63e1be013",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "65e651b4-bbe3-4d42-83c7-9bdb099681fb",
+      "role": "user",
+      "message": "family trip",
+      "created_at": "2026-08-25T11:42:57.850Z"
+    },
+    {
+      "id": "7c16b092-4293-4eb9-b157-4f64e1c69a31",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "65e651b4-bbe3-4d42-83c7-9bdb099681fb",
+      "role": "assistant",
+      "message": "[AI temporarily unavailable — quota reached] You asked: \"family trip\". Try again later or contact support@journeyjunction.com.",
+      "created_at": "2026-08-25T11:42:57.850Z"
+    },
+    {
+      "id": "b13fb270-bbb1-4e3c-929a-c2c21ab1a4be",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "3182f212-6a6e-403f-9b46-ded6064dea9c",
+      "role": "user",
+      "message": "family trip",
+      "created_at": "2026-08-25T11:43:11.896Z"
+    },
+    {
+      "id": "c2fab898-abaa-42f2-82b6-ac7926f8b1d3",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "3182f212-6a6e-403f-9b46-ded6064dea9c",
+      "role": "assistant",
+      "message": "For a family trip, an SUV or 7-seater is ideal. Based on availability: BMW 7 Series (4_wheeler, INR ₹3500/day). Pick one with good boot space and AC.",
+      "created_at": "2026-08-25T11:43:13.868Z"
+    },
+    {
+      "id": "3d15cfd8-9a78-48e3-8bd3-c78ea0106263",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "307a7dc0-1e6f-4ca4-b3d5-b09646d2d507",
+      "role": "user",
+      "message": "how to pay?",
+      "created_at": "2026-08-25T11:43:13.898Z"
+    },
+    {
+      "id": "54d591e3-cccd-4a81-a45e-d7b640975dbd",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "307a7dc0-1e6f-4ca4-b3d5-b09646d2d507",
+      "role": "assistant",
+      "message": "Booking flow: pick vehicle → choose dates → pay 50% advance via UPI → admin verifies → merchant hands over → pay balance 50%. Two-stage keeps it safe for both sides.",
+      "created_at": "2026-08-25T11:43:15.376Z"
+    },
+    {
+      "id": "9dd14dc3-d207-442e-82b7-4343b84dbc9f",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "65e651b4-bbe3-4d42-83c7-9bdb099681fb",
+      "role": "user",
+      "message": "family trip",
+      "created_at": "2026-08-25T11:44:48.054Z"
+    },
+    {
+      "id": "2540b60a-aa8a-4b0d-9031-b8cd6817e639",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "65e651b4-bbe3-4d42-83c7-9bdb099681fb",
+      "role": "assistant",
+      "message": "For a family trip, an SUV or 7-seater is ideal. Based on availability: BMW 7 Series (4_wheeler, INR ₹3500/day). Pick one with good boot space and AC.",
+      "created_at": "2026-08-25T11:44:48.054Z"
+    },
+    {
+      "id": "deef12f5-8135-446b-8af0-476017e3ec2f",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "65e651b4-bbe3-4d42-83c7-9bdb099681fb",
+      "role": "user",
+      "message": "family trip",
+      "created_at": "2026-08-25T15:43:43.493Z"
+    },
+    {
+      "id": "2f05dd0a-ae1b-49b6-b900-dcdca9741e6f",
+      "user_id": "857b8bac-17aa-46bc-abde-65c2c318b2a5",
+      "session_id": "65e651b4-bbe3-4d42-83c7-9bdb099681fb",
+      "role": "assistant",
+      "message": "For a family trip, an SUV or 7-seater is ideal. Based on availability: BMW 7 Series (4_wheeler, INR ₹3500/day). Pick one with good boot space and AC.",
+      "created_at": "2026-08-25T15:43:43.511Z"
+    }
+  ]
+}
