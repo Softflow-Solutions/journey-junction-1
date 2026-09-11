@@ -224,7 +224,7 @@ export async function refresh() {
 // we keep it as a thin refresh so any read-modify-write done on the snapshot
 // is visible to the next request.
 export async function saveDB() {
-  await refresh();
+  return refresh();
 }
 
 // ---------------- explicit write helpers ----------------
