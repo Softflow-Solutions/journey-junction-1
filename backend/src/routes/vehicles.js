@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { z } from 'zod';
-import { db } from '../db/store.js';
+import { db, saveDB } from '../db/store.js';
 
 const router = Router();
 
@@ -24,10 +24,10 @@ function isVehicleBooked(vehicleId, store) {
   );
 }
 
-router.get('/search', (req, res, next) => {
+router.get('/search', async (req, res, next) => {
   try {
     const params = searchSchema.parse(req.query);
-    const store = db();
+    const store = await saveDB();
     const results = store.vehicles
       .filter(v => v.is_available)
       .map(v => {
@@ -47,8 +47,8 @@ router.get('/search', (req, res, next) => {
         if (params.city && v.city !== params.city) return false;
         if (params.state && v.state !== params.state) return false;
         if (params.category && v.category !== params.category) return false;
-        if (params.minPrice !== undefined && v.price_per_day < params.minPrice) return false;
-        if (params.maxPrice !== undefined && v.price_per_day > params.maxPrice) return false;
+        if (params.minPrice !== undefined && Number(v.price_per_day) < params.minPrice) return false;
+        if (params.maxPrice !== undefined && Number(v.price_per_day) > params.maxPrice) return false;
         if (params.seating !== undefined && v.seating_capacity !== params.seating) return false;
         if (params.q && !`${v.title} ${v.description ?? ''}`.toLowerCase().includes(params.q.toLowerCase())) return false;
         return true;
@@ -57,20 +57,22 @@ router.get('/search', (req, res, next) => {
   } catch (e) { next(e); }
 });
 
-router.get('/:id', (req, res) => {
-  const store = db();
-  const v = store.vehicles.find(x => x.id === req.params.id);
-  if (!v) return res.status(404).json({ error: 'Vehicle not found' });
-  const m = store.merchants.find(x => x.id === v.merchant_id);
-  const booked = isVehicleBooked(v.id, store);
-  res.json({
-    ...v,
-    merchant_name: m?.business_name,
-    city: m?.city,
-    state: m?.state,
-    is_approved: m?.is_approved,
-    availability_status: booked ? 'booked' : (v.is_available ? 'available' : 'unavailable'),
-  });
+router.get('/:id', async (req, res, next) => {
+  try {
+    const store = await saveDB();
+    const v = store.vehicles.find(x => x.id === req.params.id);
+    if (!v) return res.status(404).json({ error: 'Vehicle not found' });
+    const m = store.merchants.find(x => x.id === v.merchant_id);
+    const booked = isVehicleBooked(v.id, store);
+    res.json({
+      ...v,
+      merchant_name: m?.business_name,
+      city: m?.city,
+      state: m?.state,
+      is_approved: m?.is_approved,
+      availability_status: booked ? 'booked' : (v.is_available ? 'available' : 'unavailable'),
+    });
+  } catch (e) { next(e); }
 });
 
 export default router;

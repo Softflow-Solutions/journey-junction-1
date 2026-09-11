@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { z } from 'zod';
 import { v4 as uuid } from 'uuid';
-import { db, saveDB } from '../db/store.js';
+import { db, saveDB, insertChatLog } from '../db/store.js';
 import { verifyToken, requireRole } from '../middleware/auth.js';
 import { generateChatReply, generateRecommendations } from '../services/gemini.js';
 
@@ -18,7 +18,7 @@ function buildPreferenceSummary(history, store) {
   for (const v of bookedVehicles) {
     if (!v) continue;
     catCounts[v.category] = (catCounts[v.category] || 0) + 1;
-    if (typeof v.price_per_day === 'number') { priceSum += v.price_per_day; priceN++; }
+    if (typeof v.price_per_day === 'number' || typeof v.price_per_day === 'string') { priceSum += Number(v.price_per_day); priceN++; }
   }
   const avgPrice = priceN ? Math.round(priceSum / priceN) : 0;
   const favouriteCategory = Object.entries(catCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || 'any';
@@ -32,21 +32,30 @@ function buildPreferenceSummary(history, store) {
   };
 }
 
-router.post('/chat', verifyToken, (req, res, next) => {
+router.post('/chat', verifyToken, async (req, res, next) => {
   try {
     const schema = z.object({ message: z.string().min(1), session_id: z.string().optional() });
     const data = schema.parse(req.body);
     const sessionId = data.session_id || uuid();
     const userId = req.user.sub;
-    const store = db();
-    store.chat_logs.push({ id: uuid(), user_id: userId, session_id: sessionId, role: 'user', message: data.message, created_at: new Date().toISOString() });
-    const history= store.chat_logs.filter(c => c.session_id === sessionId).slice(-10).map(c => ({ role: c.role, message: c.message }));
-    const ctx = store.vehicles
+    const store = await saveDB();
+    await insertChatLog({
+      id: uuid(),
+      user_id: userId,
+      session_id: sessionId,
+      role: 'user',
+      message: data.message,
+      created_at: new Date().toISOString(),
+    });
+    await saveDB();
+    const fresh = await saveDB();
+    const history = fresh.chat_logs.filter(c => c.session_id === sessionId).slice(-10).map(c => ({ role: c.role, message: c.message }));
+    const ctx = fresh.vehicles
       .filter(v => {
         if (!v.is_available) return false;
-        const m = store.merchants.find(x => x.id === v.merchant_id);
+        const m = fresh.merchants.find(x => x.id === v.merchant_id);
         if (!(m && m.is_approved)) return false;
-        return !store.bookings.find(b =>
+        return !fresh.bookings.find(b =>
           b.vehicle_id === v.id
           && ACTIVE_BOOKING_STATES.has(b.booking_status)
           && b.payment_status !== 'pending_advance'
@@ -55,17 +64,23 @@ router.post('/chat', verifyToken, (req, res, next) => {
       .slice(0, 20)
       .map(v => `${v.title} (${v.category}, INR ₹${v.price_per_day}/day)`)
       .join('; ');
-    return generateChatReply(history, data.message, ctx).then(reply => {
-      store.chat_logs.push({ id: uuid(), user_id: userId, session_id: sessionId, role: 'assistant', message: reply, created_at: new Date().toISOString() });
-      saveDB(store);
-      res.json({ session_id: sessionId, reply });
-    }).catch(next);
+    const reply = await generateChatReply(history, data.message, ctx);
+    await insertChatLog({
+      id: uuid(),
+      user_id: userId,
+      session_id: sessionId,
+      role: 'assistant',
+      message: reply,
+      created_at: new Date().toISOString(),
+    });
+    await saveDB();
+    res.json({ session_id: sessionId, reply });
   } catch (e) { next(e); }
 });
 
-router.get('/recommendations', verifyToken, requireRole('user'), (req, res, next) => {
+router.get('/recommendations', verifyToken, requireRole('user'), async (req, res, next) => {
   try {
-    const store = db();
+    const store = await saveDB();
     const userId = req.user.sub;
     const history = store.bookings.filter(b => b.user_id === userId).slice(0, 10);
     const bookedActiveIds = new Set(
@@ -80,21 +95,20 @@ router.get('/recommendations', verifyToken, requireRole('user'), (req, res, next
       return !!(m && m.is_approved);
     });
     const prefs = buildPreferenceSummary(history, store);
-    generateRecommendations(history, vehicles, prefs).then(recs => {
-      const vmap = new Map(vehicles.map(v => [v.id, v]));
-      const enriched = (recs || []).map(r => {
-        const v = vmap.get(r.id);
-        if (!v) return r;
-        const m = store.merchants.find(x => x.id === v.merchant_id);
-        return {
-          ...v,
-          merchant_name: m?.business_name,
-          reason: r.reason || 'Recommended match',
-          score: r.score,
-        };
-      });
-      res.json({ recommendations: enriched, preferences: prefs });
-    }).catch(next);
+    const recs = await generateRecommendations(history, vehicles, prefs);
+    const vmap = new Map(vehicles.map(v => [v.id, v]));
+    const enriched = (recs || []).map(r => {
+      const v = vmap.get(r.id);
+      if (!v) return r;
+      const m = store.merchants.find(x => x.id === v.merchant_id);
+      return {
+        ...v,
+        merchant_name: m?.business_name,
+        reason: r.reason || 'Recommended match',
+        score: r.score,
+      };
+    });
+    res.json({ recommendations: enriched, preferences: prefs });
   } catch (e) { next(e); }
 });
 

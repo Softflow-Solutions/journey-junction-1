@@ -461,9 +461,9 @@ function HistoryScreen({ token }: { token: boolean }) {
     if (!token) return;
     setLoading(true);
     api(`/user/bookings?page=${p}&limit=5`).then(d => { setPaged(d); setLoading(false); }).catch(() => setLoading(false));
-    api(`/user/bookings?limit=100`).then(d => {
-      const items = Array.isArray(d) ? d : (d?.items || []);
-      setPendingCount(items.filter(b => b.booking_status === 'awaiting_payment').length);
+    api(`/user/bookings?limit=100`).then((d: any) => {
+      const items: any[] = Array.isArray(d) ? d : (d?.items || []);
+      setPendingCount(items.filter((b: any) => b.booking_status === 'awaiting_payment').length);
     }).catch(() => setPendingCount(0));
   };
 

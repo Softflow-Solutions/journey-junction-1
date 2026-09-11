@@ -2,7 +2,7 @@ import { Router } from 'express';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { v4 as uuid } from 'uuid';
-import { db, saveDB } from '../db/store.js';
+import { db, saveDB, insertUser, insertMerchant } from '../db/store.js';
 import { signToken, verifyToken, requireRole } from '../middleware/auth.js';
 import { HttpError } from '../middleware/error.js';
 
@@ -30,7 +30,7 @@ const loginSchema = z.object({ email: z.string().email(), password: z.string() }
 router.post('/register/user', async (req, res, next) => {
   try {
     const data = registerSchema.parse(req.body);
-    const store = db();
+    const store = await saveDB();
     if (store.users.find(u => u.email === data.email) || store.merchants.find(m => m.email === data.email)) {
       throw new HttpError(409, 'Email already registered');
     }
@@ -45,8 +45,8 @@ router.post('/register/user', async (req, res, next) => {
       kyc_status: 'pending',
       created_at: new Date().toISOString(),
     };
-    store.users.push(user);
-    saveDB(store);
+    await insertUser(user);
+    await saveDB();
     const token = signToken({ sub: user.id, role: 'user', email: user.email });
     res.status(201).json({ token, user: publicUser(user), role: 'user' });
   } catch (e) { next(e); }
@@ -55,7 +55,7 @@ router.post('/register/user', async (req, res, next) => {
 router.post('/register/merchant', async (req, res, next) => {
   try {
     const data = registerMerchantSchema.parse(req.body);
-    const store = db();
+    const store = await saveDB();
     if (store.users.find(u => u.email === data.email) || store.merchants.find(m => m.email === data.email)) {
       throw new HttpError(409, 'Email already registered');
     }
@@ -73,8 +73,8 @@ router.post('/register/merchant', async (req, res, next) => {
       is_approved: false,
       created_at: new Date().toISOString(),
     };
-    store.merchants.push(merchant);
-    saveDB(store);
+    await insertMerchant(merchant);
+    await saveDB();
     const token = signToken({ sub: merchant.id, role: 'merchant', email: merchant.email });
     res.status(201).json({ token, merchant: publicMerchant(merchant), role: 'merchant' });
   } catch (e) { next(e); }
@@ -83,11 +83,10 @@ router.post('/register/merchant', async (req, res, next) => {
 router.post('/login', async (req, res, next) => {
   try {
     const data = loginSchema.parse(req.body);
-    const store = db();
+    const store = await saveDB();
     const u = store.users.find(x => x.email === data.email);
     if (u) {
-      // ponytail: demo mode — any non-empty password accepted for known demo accounts
-      const ok = data.password.length > 0 || (await bcrypt.compare(data.password, u.password_hash));
+      const ok = await bcrypt.compare(data.password, u.password_hash);
       if (!ok) throw new HttpError(401, 'Invalid credentials');
       const role = (u.role === 'admin' ? 'admin' : 'user');
       const token = signToken({ sub: u.id, role, email: u.email });
@@ -95,7 +94,7 @@ router.post('/login', async (req, res, next) => {
     }
     const m = store.merchants.find(x => x.email === data.email);
     if (m) {
-      const ok = data.password.length > 0 || (await bcrypt.compare(data.password, m.password_hash));
+      const ok = await bcrypt.compare(data.password, m.password_hash);
       if (!ok) throw new HttpError(401, 'Invalid credentials');
       const token = signToken({ sub: m.id, role: 'merchant', email: m.email });
       return res.json({ token, merchant: publicMerchant(m), role: 'merchant' });
@@ -104,19 +103,21 @@ router.post('/login', async (req, res, next) => {
   } catch (e) { next(e); }
 });
 
-router.get('/me', verifyToken, (req, res) => {
-  const store = db();
-  const { sub, role } = req.user;
-  if (role === 'user') {
-    const u = store.users.find(x => x.id === sub);
-    return u ? res.json({ account: publicUser(u), role }) : res.status(404).json({ error: 'Not found' });
-  }
-  if (role === 'merchant') {
-    const m = store.merchants.find(x => x.id === sub);
-    return m ? res.json({ account: publicMerchant(m), role }) : res.status(404).json({ error: 'Not found' });
-  }
-  const a = store.users.find(x => x.id === sub);
-  return res.json({ account: a ? publicUser(a) : null, role: 'admin' });
+router.get('/me', verifyToken, async (req, res, next) => {
+  try {
+    const store = await saveDB();
+    const { sub, role } = req.user;
+    if (role === 'user') {
+      const u = store.users.find(x => x.id === sub);
+      return u ? res.json({ account: publicUser(u), role }) : res.status(404).json({ error: 'Not found' });
+    }
+    if (role === 'merchant') {
+      const m = store.merchants.find(x => x.id === sub);
+      return m ? res.json({ account: publicMerchant(m), role }) : res.status(404).json({ error: 'Not found' });
+    }
+    const a = store.users.find(x => x.id === sub);
+    return res.json({ account: a ? publicUser(a) : null, role: 'admin' });
+  } catch (e) { next(e); }
 });
 
 router.post('/logout', verifyToken, (_req, res) => {

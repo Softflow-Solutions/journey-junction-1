@@ -29,6 +29,7 @@ type Vehicle = {
   description?: string;
   image_urls: string[];
   is_available: boolean;
+  availability_status?: 'available' | 'booked' | 'unavailable';
 };
 
 type Booking = {

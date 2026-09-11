@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: journey-junction-api
+    runtime: node
+    rootDir: backend
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000
+      - key: DATABASE_URL
+        sync: false                       # set this in the Render dashboard after creating a Neon DB
+      - key: JWT_SECRET
+        generateValue: true               # Render generates a random secret on first deploy
+      - key: GEMINI_API_KEY
+        sync: false                       # paste your Gemini key from Google AI Studio
+      - key: FRONTEND_URL
+        sync: false                       # paste your Vercel URL, e.g. https://journey-junction.vercel.app
+      - key: PLATFORM_COMMISSION_PCT
+        value: 30

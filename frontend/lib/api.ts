@@ -1,4 +1,7 @@
-export const API_URL = 'http://localhost:4000/api';
+// Base URL for the API. Set NEXT_PUBLIC_API_URL on Vercel to the Render backend URL,
+// e.g. https://journey-junction-api.onrender.com/api
+export const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
 
 export function getToken(): string | null {
   if (typeof window === 'undefined') return null;

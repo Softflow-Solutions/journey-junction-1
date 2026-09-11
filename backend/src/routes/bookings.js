@@ -1,7 +1,12 @@
 import { Router } from 'express';
 import { z } from 'zod';
 import { v4 as uuid } from 'uuid';
-import { db, saveDB } from '../db/store.js';
+import {
+  db, saveDB,
+  insertBooking, insertPayment,
+  updateBookingPayment, setBookingHandover, setBookingComplete,
+  setVehicleAvailability,
+} from '../db/store.js';
 import { verifyToken, requireRole } from '../middleware/auth.js';
 import { HttpError } from '../middleware/error.js';
 import { splitBookingAmount } from '../services/payment.js';
@@ -62,7 +67,7 @@ export function enrichBooking(b, store) {
   };
 }
 
-router.post('/', verifyToken, requireRole('user'), (req, res, next) => {
+router.post('/', verifyToken, requireRole('user'), async (req, res, next) => {
   try {
     const data = createSchema.parse(req.body);
     const start = new Date(data.start_date);
@@ -70,7 +75,7 @@ router.post('/', verifyToken, requireRole('user'), (req, res, next) => {
     if (end < start) throw new HttpError(400, 'end_date must be on/after start_date');
     const days = computeDurationDays(data.start_date, data.end_date);
 
-    const store = db();
+    const store = await saveDB();
     const user = store.users.find(u => u.id === req.user.sub);
     if (!user || user.kyc_status !== 'approved') throw new HttpError(403, 'KYC must be approved before booking');
 
@@ -97,7 +102,8 @@ router.post('/', verifyToken, requireRole('user'), (req, res, next) => {
       merchant_payout: split.merchantPayout,
       created_at: new Date().toISOString(),
     };
-    store.payments.push({
+    await insertBooking(booking);
+    await insertPayment({
       id: uuid(),
       booking_id: booking.id,
       stage: 'advance',
@@ -107,20 +113,19 @@ router.post('/', verifyToken, requireRole('user'), (req, res, next) => {
       verified_by_admin: false,
       created_at: new Date().toISOString(),
     });
-    store.bookings.push(booking);
-    saveDB(store);
+    await saveDB();
     res.status(201).json(enrichBooking(booking, store));
   } catch (e) { next(e); }
 });
 
-router.post('/:id/pay/advance', verifyToken, requireRole('user'), (req, res, next) => {
+router.post('/:id/pay/advance', verifyToken, requireRole('user'), async (req, res, next) => {
   try {
     const data = paySchema.parse(req.body);
-    const store = db();
+    const store = await saveDB();
     const b = store.bookings.find(x => x.id === req.params.id && x.user_id === req.user.sub);
     if (!b) throw new HttpError(404, 'Booking not found');
     if (b.payment_status !== 'pending_advance') throw new HttpError(409, 'Advance already paid or booking closed');
-    store.payments.push({
+    await insertPayment({
       id: uuid(),
       booking_id: b.id,
       stage: 'advance',
@@ -130,21 +135,22 @@ router.post('/:id/pay/advance', verifyToken, requireRole('user'), (req, res, nex
       verified_by_admin: false,
       created_at: new Date().toISOString(),
     });
-    b.payment_status = 'advance_paid';
-    saveDB(store);
-    res.json({ ok: true, next: 'awaiting admin verification', booking: enrichBooking(b, store) });
+    await updateBookingPayment(b.id, 'advance_paid', null);
+    await saveDB();
+    const fresh = (await saveDB()).bookings.find(x => x.id === b.id);
+    res.json({ ok: true, next: 'awaiting admin verification', booking: enrichBooking(fresh, db()) });
   } catch (e) { next(e); }
 });
 
-router.post('/:id/pay/balance', verifyToken, requireRole('user'), (req, res, next) => {
+router.post('/:id/pay/balance', verifyToken, requireRole('user'), async (req, res, next) => {
   try {
     const data = paySchema.parse(req.body);
-    const store = db();
+    const store = await saveDB();
     const b = store.bookings.find(x => x.id === req.params.id && x.user_id === req.user.sub);
     if (!b) throw new HttpError(404, 'Booking not found');
     if (b.payment_status !== 'advance_paid') throw new HttpError(409, 'Advance must be paid first');
     if (b.booking_status !== 'ongoing') throw new HttpError(409, 'Vehicle not yet handed over — balance payment unlocks after merchant hands over');
-    store.payments.push({
+    await insertPayment({
       id: uuid(),
       booking_id: b.id,
       stage: 'balance',
@@ -154,15 +160,16 @@ router.post('/:id/pay/balance', verifyToken, requireRole('user'), (req, res, nex
       verified_by_admin: false,
       created_at: new Date().toISOString(),
     });
-    b.payment_status = 'fully_paid';
-    saveDB(store);
-    res.json({ ok: true, next: 'awaiting admin verification', booking: enrichBooking(b, store) });
+    await updateBookingPayment(b.id, 'fully_paid', null);
+    await saveDB();
+    const fresh = (await saveDB()).bookings.find(x => x.id === b.id);
+    res.json({ ok: true, next: 'awaiting admin verification', booking: enrichBooking(fresh, db()) });
   } catch (e) { next(e); }
 });
 
-router.post('/:id/handover', verifyToken, requireRole('merchant'), (req, res, next) => {
+router.post('/:id/handover', verifyToken, requireRole('merchant'), async (req, res, next) => {
   try {
-    const store = db();
+    const store = await saveDB();
     const b = store.bookings.find(x => x.id === req.params.id);
     if (!b) throw new HttpError(404, 'Booking not found');
     if (b.merchant_id !== req.user.sub) throw new HttpError(403, 'Not your booking');
@@ -172,39 +179,42 @@ router.post('/:id/handover', verifyToken, requireRole('merchant'), (req, res, ne
     const v = store.vehicles.find(x => x.id === b.vehicle_id);
     if (!v) throw new HttpError(404, 'Vehicle not found');
 
-    b.booking_status = 'ongoing';
-    b.handed_over_at = new Date().toISOString();
-    v.is_available = false;
-    saveDB(store);
+    await setBookingHandover(b.id);
+    await setVehicleAvailability(v.id, false);
+    await saveDB();
 
-    res.json({ ok: true, booking: enrichBooking(b, store), vehicle: v });
+    const fresh = db().bookings.find(x => x.id === b.id);
+    const freshV = db().vehicles.find(x => x.id === v.id);
+    res.json({ ok: true, booking: enrichBooking(fresh, db()), vehicle: freshV });
   } catch (e) { next(e); }
 });
 
-router.post('/:id/complete', verifyToken, requireRole('merchant'), (req, res, next) => {
+router.post('/:id/complete', verifyToken, requireRole('merchant'), async (req, res, next) => {
   try {
-    const store = db();
+    const store = await saveDB();
     const b = store.bookings.find(x => x.id === req.params.id);
     if (!b) throw new HttpError(404, 'Booking not found');
     if (b.merchant_id !== req.user.sub) throw new HttpError(403, 'Not your booking');
     if (b.booking_status !== 'ongoing') throw new HttpError(409, 'Booking is not ongoing');
-    b.booking_status = 'completed';
-    b.completed_at = new Date().toISOString();
+    await setBookingComplete(b.id);
     const v = store.vehicles.find(x => x.id === b.vehicle_id);
-    if (v) v.is_available = true;
-    saveDB(store);
-    res.json({ ok: true, booking: enrichBooking(b, store) });
+    if (v) await setVehicleAvailability(v.id, true);
+    await saveDB();
+    const fresh = db().bookings.find(x => x.id === b.id);
+    res.json({ ok: true, booking: enrichBooking(fresh, db()) });
   } catch (e) { next(e); }
 });
 
-router.get('/:id', verifyToken, (req, res) => {
-  const store = db();
-  const b = store.bookings.find(x => x.id === req.params.id);
-  if (!b) return res.status(404).json({ error: 'Not found' });
-  const { sub, role } = req.user;
-  if (role === 'user' && b.user_id !== sub) return res.status(403).json({ error: 'Forbidden' });
-  if (role === 'merchant' && b.merchant_id !== sub) return res.status(403).json({ error: 'Forbidden' });
-  res.json(enrichBooking(b, store));
+router.get('/:id', verifyToken, async (req, res, next) => {
+  try {
+    const store = await saveDB();
+    const b = store.bookings.find(x => x.id === req.params.id);
+    if (!b) return res.status(404).json({ error: 'Not found' });
+    const { sub, role } = req.user;
+    if (role === 'user' && b.user_id !== sub) return res.status(403).json({ error: 'Forbidden' });
+    if (role === 'merchant' && b.merchant_id !== sub) return res.status(403).json({ error: 'Forbidden' });
+    res.json(enrichBooking(b, store));
+  } catch (e) { next(e); }
 });
 
 export default router;
