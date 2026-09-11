@@ -36,6 +36,23 @@ app.get('/api/health', async (_req, res) => {
   res.json({ ok: dbStatus === 'up', db: dbStatus, ts: Date.now() });
 });
 
+// Background DB init — don't block app.listen() on a slow Neon cold-start.
+// Render's health check needs the port open promptly; schema/seed run when ready.
+const bootPromise = (async () => {
+  try {
+    await ensureSchema();
+    await seedIfEmpty();
+    await refresh();
+    console.log('[journey-junction] DB schema ready, data snapshot loaded');
+  } catch (e) {
+    console.error('[journey-junction] DB init failed:', e.message);
+  }
+})();
+app.get('/api/health/ready', async (_req, res) => {
+  await bootPromise; // wait for first-boot schema/seed to finish
+  res.json({ ok: true });
+});
+
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/merchant', merchantRouter);
@@ -47,21 +64,7 @@ app.use('/api/ai', aiRouter);
 app.use((_req, res) => res.status(404).json({ error: 'Not found' }));
 app.use(errorHandler);
 
-async function boot() {
-  try {
-    await ensureSchema();
-    await seedIfEmpty();
-    await refresh();
-    console.log('[journey-junction] DB schema ready, data snapshot loaded');
-  } catch (e) {
-    console.error('[journey-junction] DB init failed:', e.message);
-    // Don't exit — keep the server up so /api/health reports db=down. Render will
-    // surface this in logs and the route still serves a meaningful answer.
-  }
-  app.listen(env.PORT, () => {
-    console.log(`[journey-junction] API listening on port ${env.PORT}`);
-    console.log(`[journey-junction] CORS origins: ${origins.join(', ')}`);
-  });
-}
-
-boot();
+app.listen(env.PORT, () => {
+  console.log(`[journey-junction] API listening on port ${env.PORT}`);
+  console.log(`[journey-junction] CORS origins: ${origins.join(', ')}`);
+});
